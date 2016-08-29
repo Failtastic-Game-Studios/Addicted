@@ -55,6 +55,9 @@ namespace cheese { namespace graphics {
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowUserPointer(m_Window, this);
 		glfwSetWindowSizeCallback(m_Window, window_resize);
+		glfwSetMouseButtonCallback(m_Window, mouse_button_callback);
+		glfwSetKeyCallback(m_Window, key_callback);
+		glfwSetCursorPosCallback(m_Window, cursor_position_callback);
 
 
 		if (glewInit() != GLEW_OK)
@@ -76,6 +79,22 @@ namespace cheese { namespace graphics {
 		return m_Keys[keycode];
 	}
 #pragma endregion isKeyPressed
+#pragma region isMouseButtonPressed
+	bool Window::isMouseButtonPressed(unsigned int button)
+	{
+		if (button >= MAX_BUTTONS)
+			return false;
+		//log error
+		return m_MouseButtons[button];
+	}
+#pragma endregion isMouseButtonPressed
+#pragma region getMousePosition
+	void Window::getMousePosition(double& x, double& y)
+	{
+		x = mx;
+		y = my;
+	}
+#pragma endregion getMousePosition
 #pragma region clear
 	void Window::clear() const
 	{
@@ -109,5 +128,19 @@ namespace cheese { namespace graphics {
 		win->m_Keys[key] = action != GLFW_RELEASE;
 	}
 #pragma endregion key_callback
-
+#pragma region mouse_button_callback
+	void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+	{
+		Window* win = (Window*)glfwGetWindowUserPointer(window);
+		win->m_MouseButtons[button] = action != GLFW_RELEASE;
+	}
+#pragma endregion mouse_button_callback
+#pragma region cursor_position_callback
+	void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
+	{
+		Window* win = (Window*)glfwGetWindowUserPointer(window);
+		win->mx = xpos;
+		win->my = ypos;
+	}
+#pragma endregion cursor_position_callback
 } }
