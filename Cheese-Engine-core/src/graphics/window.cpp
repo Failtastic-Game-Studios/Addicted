@@ -45,7 +45,7 @@ namespace cheese { namespace graphics {
 			return false;
 		}
 		
-		m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, NULL, NULL);
+		m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, glfwGetPrimaryMonitor(), NULL);
 		if (!m_Window)
 		{
 			glfwTerminate();
