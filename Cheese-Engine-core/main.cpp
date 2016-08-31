@@ -14,9 +14,14 @@ int main()
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
+	vec2 a(1.0f, 2.0f);
+	vec2 b(1.0f, 2.0f);
+
+	std::cout << (a!=b) << std::endl;
 	while (!window.closed())
 	{
 		window.clear();
+
 
 		glBegin(GL_QUADS);
 		glVertex2f(-0.1f, -0.1f);

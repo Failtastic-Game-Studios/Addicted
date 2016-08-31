@@ -26,6 +26,7 @@ namespace cheese { namespace graphics {
 		bool closed() const;
 		void update();
 		void clear() const;
+		void altEnter();
 
 		inline int getWidth() const { return m_Width; }
 		inline int getHeight() const { return m_Height; }
